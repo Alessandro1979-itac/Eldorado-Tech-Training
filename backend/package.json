@@ -1,0 +1,59 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Gerenciado de dispositos",
+  "main": "src/serve.js",
+  "repository": "https://github.com/Alessandro1979-itac/Eldorado-Tech-Training.git",
+  "author": "Alessandro Muniz",
+  "license": "MIT",
+  "scripts":{
+    "prepare": "husky install",
+		"lint": "prettier --check .",
+		"format": "prettier --write .",
+		"dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+		"build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+		"start": "ts-node dist/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.9",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-decorators": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+		"babel-plugin-transform-decorators": "^6.24.1",
+		"babel-plugin-transform-typescript-metadata": "^0.3.2",
+		"eslint": "^8.13.0",
+		"eslint-config-prettier": "^8.5.0",
+		"husky": "^7.0.4",
+		"lint-staged": "^12.3.7",
+		"prettier": "^2.6.2",
+		"ts-node": "^10.7.0",
+		"ts-node-dev": "^1.1.8",
+		"tsconfig-paths": "^3.14.1",
+		"typescript": "^4.6.3"
+  },
+  "lint-staged": {
+    "src/**/*.ts":[
+      "eslint --fix",
+			"prettier --write"
+    ]
+  }
+}

@@ -21,20 +21,24 @@ Nota: É possível enviar requisições HTTP: GET, POST e DELETE para '/device' 
 
 3. Ainda na pasta 'backend', teremos um arquivo .env-copy.<br />
    3.1 Agora, podemos copiar/colar este arquivo e renomear o novo arquivo para '.env'.<br />
-   3.2 Altere os valores das variáveis ​​de acordo com o ambiente local. As 4 primeiras variáveis ​​são todas para conectar com o banco de dados, a variável API_PORT é para determinar em qual porta o aplicativo do servidor será executado. Por exemplo: 'http://localhost:3000'.
+   3.2 Altere os valores das variáveis ​​de acordo com o ambiente local. As 4 primeiras variáveis ​​são todas para conectar com o banco de dados, a variável API_PORT é para determinar em qual porta o aplicativo do servidor será executado. Por exemplo: 'http://localhost:8080'.
 
 4. Execute o back-end.<br />
    4.1 Em um terminal, acesse o diretório Eldorado-Tech-Training/backend do projeto e execute os seguintes comandos:
 
    ```
    npm install -> instala as dependências do projeto backend.
+   ou
+   yarn install -> instala as dependências do projeto backend.
 
-   node app.js -> executa o projeto usando o nodejs
+   node server.js -> executa o projeto usando o nodejs
    ou
    npm run start:dev -> executa o projeto usando o nodemon
+   ou
+   yarn run dev -> executa o projeto usando o nodemon
    ```
 
-A aplicação backend agora deve estar rodando no endereço 'http://localhost:3000', ou em outra porta, de acordo com a variável .env API_PORT.
+A aplicação backend agora deve estar rodando no endereço 'http://localhost:8080', ou em outra porta, de acordo com a variável .env API_PORT.
 
 IMPORTANTE: Observe que o node v14 é necessário para que o aplicativo funcione corretamente! Isso se deve a mudanças no mecanismo de importação do node nas versões mais recentes.
 
@@ -43,10 +47,14 @@ IMPORTANTE: Observe que o node v14 é necessário para que o aplicativo funcione
 
    ```
    npm install -> instala as dependências do projeto frontend.
+   ou
+   yarn install -> instala as dependências do projeto frontend.
 
    ng serve -> executa o projeto.
    ou
    npm start -> que também executa o projeto.
+   ou
+   yar start -> que também executa o projeto.
    ```
 
 Em um navegador de sua preferência, acesse a seguinte url: 'http://localhost:4200/' e agora você poderá testar o aplicativo.

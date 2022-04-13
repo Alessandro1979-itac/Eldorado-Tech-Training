@@ -1,0 +1,87 @@
+<h1 mat-dialog-title>
+  {{ params.id == 0 ? "Add Device" : "View Device" }}
+</h1>
+<div mat-dialog-content>
+  <form #DeviceForm="ngForm" class="example-form" (ngSubmit)="onSubmit()">
+    <div [hidden]="params.id === 0">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          required
+          [(ngModel)]="params.id"
+          name="id"
+          [disabled]="true"
+          [hidden]="params.id === 0"
+        />
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <mat-select
+        matInput
+        placeholder="Category"
+        required
+        [(ngModel)]="params.categoryId"
+        name="category"
+        [disabled]="params.id > 0"
+      >
+        <mat-option *ngFor="let cat of categories" [value]="cat.id">
+          {{ cat.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Color"
+        type="text"
+        required
+        [(ngModel)]="params.color"
+        name="color"
+        maxlength="16"
+        required
+        [disabled]="params.id > 0"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Part Number"
+        type="number"
+        required
+        [(ngModel)]="params.partNumber"
+        name="partNumber"
+        required
+        [disabled]="params.id > 0"
+      />
+    </mat-form-field>
+    <div [hidden]="params.id > 0">
+      <button
+        style="width: 100%"
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="
+          DeviceForm.invalid ||
+          params.categoryId === 0 ||
+          params.partNumber <= 0
+        "
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    class="close"
+    (click)="onNoClick()"
+    [ngStyle]="{
+      'background-color': params.id === 0 ? 'red' : 'grey',
+      color: 'white'
+    }"
+  >
+    {{ params.id === 0 ? "Cancel" : "Close" }}
+  </button>
+</div>

@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>
+  {{ params.id == 0 ? "Add Category" : "View Category" }}
+</h1>
+<div mat-dialog-content>
+  <form #CategoryForm="ngForm" class="example-form" (ngSubmit)="onSubmit()">
+    <div [hidden]="params.id === 0">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          required
+          [(ngModel)]="params.id"
+          name="id"
+          [disabled]="true"
+          [hidden]="params.id === 0"
+        />
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Name"
+        type="text"
+        required
+        [(ngModel)]="params.name"
+        name="name"
+        maxlength="128"
+        [disabled]="params.id > 0"
+      />
+    </mat-form-field>
+    <div [hidden]="params.id > 0">
+      <button
+        style="width: 100%"
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="CategoryForm.invalid"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    class="close"
+    (click)="onNoClick()"
+    [ngStyle]="{
+      'background-color': params.id === 0 ? 'red' : 'grey',
+      color: 'white'
+    }"
+  >
+    {{ params.id === 0 ? "Cancel" : "Close" }}
+  </button>
+</div>

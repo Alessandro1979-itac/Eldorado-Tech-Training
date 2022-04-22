@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const login = require('../../middleware/login');
 
 const {
   getDevices,
@@ -7,10 +8,10 @@ const {
   deleteDevice,
 } = require('../controllers/controllerDevice');
 
-router.get('/get', getDevices);
+router.get('', getDevices);
 
-router.post('/save', insertDevice);
+router.post('/save', login.required, insertDevice);
 
-router.delete('/delete/:deviceId', deleteDevice);
+router.delete('/delete/:deviceId', login.required, deleteDevice);
 
 module.exports = router;

@@ -15,3 +15,10 @@ CREATE TABLE `Device` (
   `PartNumber` bigint unsigned NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Users` (
+    `userId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `email` VARCHAR(100) UNIQUE NOT NULL,
+    `password` VARCHAR(100) NOT NULL,
+    PRIMARY KEY (`userId`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;

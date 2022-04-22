@@ -22,7 +22,7 @@ export class ServicesCategory {
   }
 
   getCategories(): Observable<CategoryModel[]> {
-    let url = this._endPoint.getRestService('category/get');
+    let url = this._endPoint.getRestService('category');
     return this._http
       .get<any>(url, {
         observe: 'response',

@@ -22,7 +22,7 @@ export class ServicesDevice {
   }
 
   getDevices(): Observable<DeviceModel[]> {
-    let url = this._endPoint.getRestService('device/get');
+    let url = this._endPoint.getRestService('device');
     return this._http
       .get<any>(url, {
         observe: 'response',

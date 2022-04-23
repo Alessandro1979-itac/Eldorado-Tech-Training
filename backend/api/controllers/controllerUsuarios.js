@@ -1,37 +1,32 @@
 const { default: knex } = require('knex');
+const mysql = require('../../config/mysql');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const mysql = require('../../config/mysql');
 
 const database = knex(mysql);
 database.migrate.latest([mysql]);
 
-const createUser = async (req, res, _next) => {
+const createUser = async (req, res, next) => {
   try {
-    const users = req.body.users.map((user) => [
-      user.email,
-      bcrypt.hashSync(user.password, 10),
-    ]);
-
-    query = 'INSERT INTO users (email, password) VALUES ?';
-    const results = await database.execute(query, [users]);
-
-    const response = {
-      message: 'Usuário criado com sucesso',
-      createdUsers: req.body.users.map((user) => {
-        return { email: user.email };
-      }),
-    };
-    return res.status(201).send(response);
+    await database.transaction((trx) => {
+      database
+        .table('Users')
+        .insert(req.body)
+        .then((resp) => {
+          trx.commit;
+          console.log('Success! User were inserted');
+          res.status(200).send(JSON.parse('{"response":"ok"}'));
+        }, next);
+    });
   } catch (error) {
-    return res.status(500).send({ error: error });
+    throw error;
   }
 };
 
-const login = async (req, res, _next) => {
+const loginUser = async (req, res, _next) => {
   try {
-    const query = `SELECT * FROM users WHERE email = ?`;
-    var results = await database.execute(query, [req.body.email]);
+    const query = `SELECT * FROM Users WHERE email = ?`;
+    const results = await database.execute(query, [req.body.email]);
 
     if (results.length < 1) {
       return res.status(401).send({ message: 'Falha na autenticação' });
@@ -59,4 +54,4 @@ const login = async (req, res, _next) => {
   }
 };
 
-module.exports = { createUser, login };
+module.exports = { createUser, loginUser };

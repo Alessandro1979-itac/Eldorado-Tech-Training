@@ -7,7 +7,7 @@ const port = app.get('port');
 
 app.use('/api/device', devices_routes);
 app.use('/api/category', categories_routes);
-app.use('/api/usuario', usuarios_routes);
+app.use('/api/users', usuarios_routes);
 
 // RODANDO NOSSA APLICAÇÃO NA PORTA SETADA
 app.listen(port, () => {

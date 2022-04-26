@@ -7,9 +7,6 @@ const createTokens = (payload) => {
   const token = jwt.sign(payload, process.env.JWT_KEY, {
     expiresIn: '1h',
   });
-  // const refresh_token = jwt.sign(payload, process.env.JWT_KEY, {
-  //   expiresIn: '30m',
-  // });
 
   return [token];
 };
@@ -24,7 +21,7 @@ const createUser = async (req, res) => {
   mysqlConnection.query(sql, data, (err, results) => {
     if (err) res.status(400).send({ error: err.message });
     const response = {
-      mensagem: 'Usuário criado com sucesso',
+      mensagem: 'User created successfully',
       usuarioCriado: {
         userId: results.insertId,
         email: req.body.email,

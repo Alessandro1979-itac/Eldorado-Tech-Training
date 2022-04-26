@@ -8,7 +8,7 @@ const {
   deleteCategory,
 } = require('../controllers/controllerCategory');
 
-router.get('/', getCategories);
+router.get('', getCategories);
 
 router.post('/save', login.required, insertCategory);
 

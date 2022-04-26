@@ -1,64 +1,18 @@
-// const { default: knex } = require('knex');
-// const mysql = require('../../config/mysql');
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
-
-// const database = knex(mysql);
-// database.migrate.latest([mysql]);
-
-// const createUser = async (req, res, next) => {
-//   try {
-//     const hash = await bcrypt.hashSync(req.body.password, 10);
-//     await database.transaction((trx) => {
-//       database
-//         .table('Users')
-//         .insert(req.body, req.body.hash)
-//         .then((resp) => {
-//           trx.commit;
-//           console.log('Success! User were inserted');
-//           res.status(200).send(JSON.parse('{"response":"ok"}'));
-//         }, next);
-//     });
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-// const loginUser = async (req, res, _next) => {
-//   try {
-//     const query = `SELECT * FROM Users WHERE email = ?`;
-//     const results = await database.execute(query, [req.body.email]);
-
-//     if (results.length < 1) {
-//       return res.status(401).send({ message: 'Falha na autenticação' });
-//     }
-
-//     if (await bcrypt.compareSync(req.body.password, results[0].password)) {
-//       const token = jwt.sign(
-//         {
-//           userId: results[0].userId,
-//           email: results[0].email,
-//         },
-//         process.env.JWT_KEY,
-//         {
-//           expiresIn: '1h',
-//         }
-//       );
-//       return res.status(200).send({
-//         message: 'Autenticado com sucesso',
-//         token: token,
-//       });
-//     }
-//     return res.status(401).send({ message: 'Falha na autenticação' });
-//   } catch (error) {
-//     return res.status(500).send({ message: 'Falha na autenticação' });
-//   }
-// };
-
-// module.exports = { createUser, loginUser };
-const mysqlConnection = require('../../config/mysql');
+const mysqlConnection = require('../../config/mysql2');
+const { handleSQLError } = require('../../config/error');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+const createTokens = (payload) => {
+  const token = jwt.sign(payload, process.env.JWT_KEY, {
+    expiresIn: '1h',
+  });
+  // const refresh_token = jwt.sign(payload, process.env.JWT_KEY, {
+  //   expiresIn: '30m',
+  // });
+
+  return [token];
+};
 
 const createUser = async (req, res) => {
   const { email, password } = req.body;
@@ -80,34 +34,42 @@ const createUser = async (req, res) => {
   });
 };
 
-const loginUser = async (req, res, _next) => {
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const sql = `SELECT * FROM Users WHERE email = ?`;
-    var results = await mysqlConnection.query(sql, req.body.email);
+    mysqlConnection.query(
+      "SELECT * FROM Users WHERE email = '" + email + "' ",
+      (err, results) => {
+        if (err) return handleSQLError(res, err);
+        if (!results.length)
+          return res
+            .status(404)
+            .send(`User with email ${email} does not exist.`);
 
-    if (results.length < 1) {
-      return res.status(401).send({ message: 'Falha na autenticação' });
-    }
+        const hash = results[0].password;
+        bcrypt.compare(password, hash).then((result) => {
+          console.log('hashed', result);
+          if (result === false)
+            return res.status(400).json({ error: 'Invalid Password' });
+          else if (result === true) {
+            const userData = { ...results[0] };
+            userData.password = 'Redacted';
 
-    if (await bcrypt.compare(req.body.password, results[0].password)) {
-      const token = jwt.sign(
-        {
-          userId: results[0].userId,
-          email: results[0].email,
-        },
-        process.env.JWT_KEY,
-        {
-          expiresIn: '1h',
-        }
-      );
-      return res.status(200).send({
-        message: 'Autenticado com sucesso',
-        token: token,
-      });
-    }
-    return res.status(401).send({ message: 'Falha na autenticação' });
+            const token = createTokens({ userData });
+
+            return res.status(201).json({
+              message: 'Logged In',
+              user: userData,
+              token,
+            });
+          }
+        });
+      }
+    );
   } catch (error) {
-    return res.status(500).send({ message: 'Falha na autenticação' });
+    console.error(error);
+    res.send({ error: error.message });
   }
 };
 

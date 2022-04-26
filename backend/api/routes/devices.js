@@ -12,6 +12,6 @@ router.get('', getDevices);
 
 router.post('/save', login.required, insertDevice);
 
-router.delete('/delete/:deviceId', login.required, deleteDevice);
+router.delete('/delete/:Id', login.required, deleteDevice);
 
 module.exports = router;

@@ -8,10 +8,10 @@ const {
   deleteCategory,
 } = require('../controllers/controllerCategory');
 
-router.get('', getCategories);
+router.get('/', getCategories);
 
 router.post('/save', login.required, insertCategory);
 
-router.delete('/delete/:categoryId', login.required, deleteCategory);
+router.delete('/delete/:Id', login.required, deleteCategory);
 
 module.exports = router;

@@ -53,7 +53,7 @@ export class ServicesCategory {
 
   deleteCategory(categoryId: number): Observable<any> {
     return this._http
-      .delete<any>(`${base_url}category/delete/${categoryId}`, {
+      .delete<any>(`${base_url}/category/delete/${categoryId}`, {
         observe: 'response',
         headers: this.getHeaders(),
       })

@@ -48,7 +48,7 @@ a:active {
 .icon {
   display: inline-block;
   height: 30px;
-  margin: 0 auto;
+  margin-right: 5px;
   padding-right: 10px;
   text-align: center;
   vertical-align: middle;
@@ -61,16 +61,18 @@ a:active {
   margin-left: 7px;
   width: 60%;
 }
+
 header,
-main {
+main,
+footer {
   flex-shrink: 0;
 }
 
-/* .footer {
+.footer {
   position: absolute;
   bottom: auto;
   width: 100%;
   background-color: #ccc;
   text-align: center;
   vertical-align: middle;
-} */
+}

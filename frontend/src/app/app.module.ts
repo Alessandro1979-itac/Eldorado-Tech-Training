@@ -22,8 +22,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { ServicesCategory } from './services/services-category';
 import { ServicesDevice } from './services/services-device';
 
-import { EndPointService } from './services/endpoint';
-
 import { WINDOW_PROVIDERS } from './window.provider';
 
 import { httpInterceptorProviders } from './http-interceptors';
@@ -53,7 +51,6 @@ import { httpInterceptorProviders } from './http-interceptors';
     httpInterceptorProviders,
     ServicesCategory,
     ServicesDevice,
-    EndPointService,
     WINDOW_PROVIDERS,
   ],
   bootstrap: [AppComponent],

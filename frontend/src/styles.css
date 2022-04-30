@@ -20,16 +20,15 @@ main {
 }
 
 header,
-main,
-footer {
+main {
   flex-shrink: 0;
 }
 
-.footer {
+/* .footer {
   position: absolute;
   bottom: auto;
   width: 100%;
   background-color: #ccc;
   text-align: center;
   vertical-align: middle;
-}
+} */

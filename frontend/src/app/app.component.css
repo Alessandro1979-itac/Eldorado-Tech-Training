@@ -1,4 +1,4 @@
-mat-sidenav-container,
+/* mat-sidenav-container,
 mat-sidenav-content,
 mat-sidenav {
   height: 95%;
@@ -41,3 +41,17 @@ a:active {
   margin-left: 7px;
   width: 60%;
 }
+header,
+main,
+footer {
+  flex-shrink: 0;
+}
+
+.footer {
+  position: absolute;
+  bottom: auto;
+  width: 100%;
+  background-color: #ccc;
+  text-align: center;
+  vertical-align: middle;
+} */

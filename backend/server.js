@@ -7,6 +7,12 @@ const devices_routes = require('./api/routes/devices');
 const categories_routes = require('./api/routes/categories');
 const usuarios_routes = require('./api/routes/usuarios');
 
+const options = {
+  origin: '*',
+  credentials: true,
+  maxAge: 3600,
+};
+
 app.use(morgan('dev'));
 
 app.use(express.urlencoded({ extended: false }));
@@ -16,7 +22,7 @@ app.use('/api/device', devices_routes);
 app.use('/api/category', categories_routes);
 app.use('/api/users', usuarios_routes);
 
-app.use(cors());
+app.use(cors(options));
 
 app.use((_req, _res, next) => {
   const erro = new Error('Não encontrado');

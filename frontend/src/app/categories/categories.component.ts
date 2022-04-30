@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 
 import { CategoriesDialogComponent } from './categories-dialog/categories-dialog.component';
 
-import { ServicesCategory } from '../services/services-category';
+import { CategoryService } from '../services/category.service';
 
 import { CategoryModel } from '../models/category';
 
@@ -31,7 +31,7 @@ export class CategoriesComponent implements OnInit, OnDestroy, AfterViewInit {
   public dataSource: MatTableDataSource<CategoryModel>;
   private serviceSubscribe: Subscription;
 
-  constructor(public _dialog: MatDialog, private _services: ServicesCategory) {
+  constructor(public _dialog: MatDialog, private _services: CategoryService) {
     this.dataSource = new MatTableDataSource<CategoryModel>();
     this.serviceSubscribe = this._services.categories$.subscribe((res) => {
       this.dataSource.data = res;

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryModel } from '../../models/category';
 import { DeviceModel } from '../../models/device';
 
-import { ServicesCategory } from '../../services/services-category';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'devices-dialog',
@@ -23,7 +23,7 @@ export class DevicesDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DevicesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeviceModel,
-    public _services: ServicesCategory
+    public _services: CategoryService
   ) {
     this.params.id = data.id;
     this.params.categoryId = data.categoryId;

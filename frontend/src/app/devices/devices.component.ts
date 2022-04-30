@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 
 import { DevicesDialogComponent } from './devices-dialog/devices-dialog.component';
 
-import { ServicesDevice } from '../services/services-device';
+import { DeviceService } from '../services/device.service';
 
 import { DeviceModel } from '../models/device';
 
@@ -33,7 +33,7 @@ export class DevicesComponent implements OnInit, OnDestroy, AfterViewInit {
   public dataSource: MatTableDataSource<DeviceModel>;
   private serviceSubscribe: Subscription;
 
-  constructor(public _dialog: MatDialog, private _services: ServicesDevice) {
+  constructor(public _dialog: MatDialog, private _services: DeviceService) {
     this.dataSource = new MatTableDataSource<DeviceModel>();
     this.serviceSubscribe = this._services.devices$.subscribe((res) => {
       this.dataSource.data = res;

@@ -19,8 +19,8 @@ import { AuthenticationComponent } from './layout/authentication/authentication.
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ServicesCategory } from './services/services-category';
-import { ServicesDevice } from './services/services-device';
+import { CategoryService } from './services/category.service';
+import { DeviceService } from './services/device.service';
 
 import { WINDOW_PROVIDERS } from './window.provider';
 
@@ -49,8 +49,8 @@ import { httpInterceptorProviders } from './http-interceptors';
   ],
   providers: [
     httpInterceptorProviders,
-    ServicesCategory,
-    ServicesDevice,
+    CategoryService,
+    DeviceService,
     WINDOW_PROVIDERS,
   ],
   bootstrap: [AppComponent],

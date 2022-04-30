@@ -25,8 +25,16 @@
           xPosition="after"
           yPosition="above"
         >
-          <button mat-menu-item [matMenuTriggerFor]="subMenu">Home</button>
-          <button mat-menu-item>Sair</button>
+          <button mat-menu-item [matMenuTriggerFor]="subMenu">
+            <a>
+              <mat-icon class="icon">home</mat-icon>
+              <span class="labels">Home</span>
+            </a>
+          </button>
+          <button mat-menu-item (click)="deslogar()">
+            <mat-icon>power_settings_new</mat-icon>
+            <span class="labels">Logout</span>
+          </button>
         </mat-menu>
 
         <mat-menu #subMenu="matMenu">
@@ -79,7 +87,5 @@
   </mat-sidenav-container>
 </div>
 <footer class="footer">
-  <div>
-    <h2>&copy; 2022. Alemcar-dev</h2>
-  </div>
+  <div>&copy; 2022 Pro by Alemcar.dev</div>
 </footer>

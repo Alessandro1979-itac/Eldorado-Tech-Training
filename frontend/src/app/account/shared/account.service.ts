@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import jwt_decode from 'jwt-decode';
 
@@ -11,7 +12,7 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class AccountService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   async login(user: any) {
     const result = await this.http
@@ -71,5 +72,10 @@ export class AccountService {
     }
 
     return true;
+  }
+
+  deslogar() {
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 }

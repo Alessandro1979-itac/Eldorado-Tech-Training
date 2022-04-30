@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../account/shared/account.service';
 
 @Component({
   selector: 'app-welcome',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.css'],
 })
 export class WelcomeComponent implements OnInit {
-  constructor() {}
+  constructor(private accountService: AccountService) {}
 
   ngOnInit() {}
+
+  deslogar() {
+    this.accountService.deslogar();
+  }
 }

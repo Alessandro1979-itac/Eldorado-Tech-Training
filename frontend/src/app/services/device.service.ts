@@ -12,7 +12,7 @@ const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root',
 })
-export class ServicesDevice {
+export class DeviceService {
   devices$: BehaviorSubject<DeviceModel[]>;
 
   constructor(private _http: HttpClient) {

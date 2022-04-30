@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
     try {
       const result = await this.accountService.login(this.login);
       console.log(`Login efetuado: ${result}`);
-
       this.router.navigate(['']);
     } catch (error) {
       console.error(error);

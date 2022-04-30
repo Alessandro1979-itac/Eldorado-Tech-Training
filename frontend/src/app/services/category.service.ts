@@ -12,7 +12,7 @@ const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root',
 })
-export class ServicesCategory {
+export class CategoryService {
   categories$: BehaviorSubject<CategoryModel[]>;
 
   constructor(private _http: HttpClient) {

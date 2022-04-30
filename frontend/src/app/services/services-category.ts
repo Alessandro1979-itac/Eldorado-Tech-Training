@@ -2,8 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { CategoryModel } from '../models/category';
-import { EndPointService } from './endpoint';
+
+import { environment } from './../../environments/environment';
+
+const base_url = environment.base_url;
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +15,7 @@ import { EndPointService } from './endpoint';
 export class ServicesCategory {
   categories$: BehaviorSubject<CategoryModel[]>;
 
-  constructor(private _http: HttpClient, private _endPoint: EndPointService) {
+  constructor(private _http: HttpClient) {
     this.categories$ = new BehaviorSubject<CategoryModel[]>([]);
   }
 
@@ -22,9 +26,8 @@ export class ServicesCategory {
   }
 
   getCategories(): Observable<CategoryModel[]> {
-    let url = this._endPoint.getRestService('category');
     return this._http
-      .get<any>(url, {
+      .get<any>(`${base_url}/category`, {
         observe: 'response',
         headers: this.getHeaders(),
       })
@@ -36,9 +39,8 @@ export class ServicesCategory {
   }
 
   saveCategory(item: CategoryModel): Observable<any> {
-    let url = this._endPoint.getRestService('category/save');
     return this._http
-      .post<any>(url, item, {
+      .post<any>(`${base_url}/category/save`, item, {
         observe: 'response',
         headers: this.getHeaders(),
       })
@@ -50,9 +52,8 @@ export class ServicesCategory {
   }
 
   deleteCategory(categoryId: number): Observable<any> {
-    let url = this._endPoint.getRestService('category/delete/' + categoryId);
     return this._http
-      .delete<any>(url, {
+      .delete<any>(`${base_url}category/delete/${categoryId}`, {
         observe: 'response',
         headers: this.getHeaders(),
       })

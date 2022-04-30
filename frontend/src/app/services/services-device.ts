@@ -2,8 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { DeviceModel } from '../models/device';
-import { EndPointService } from './endpoint';
+
+import { environment } from './../../environments/environment';
+
+const base_url = environment.base_url;
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +15,7 @@ import { EndPointService } from './endpoint';
 export class ServicesDevice {
   devices$: BehaviorSubject<DeviceModel[]>;
 
-  constructor(private _http: HttpClient, private _endPoint: EndPointService) {
+  constructor(private _http: HttpClient) {
     this.devices$ = new BehaviorSubject<DeviceModel[]>([]);
   }
 
@@ -22,9 +26,8 @@ export class ServicesDevice {
   }
 
   getDevices(): Observable<DeviceModel[]> {
-    let url = this._endPoint.getRestService('device');
     return this._http
-      .get<any>(url, {
+      .get<any>(`${base_url}/device`, {
         observe: 'response',
         headers: this.getHeaders(),
       })
@@ -36,9 +39,8 @@ export class ServicesDevice {
   }
 
   saveDevice(item: DeviceModel): Observable<any> {
-    let url = this._endPoint.getRestService('device/save');
     return this._http
-      .post<any>(url, item, {
+      .post<any>(`${base_url}/device/save`, item, {
         observe: 'response',
         headers: this.getHeaders(),
       })
@@ -50,9 +52,8 @@ export class ServicesDevice {
   }
 
   deleteDevice(deviceId: number): Observable<any> {
-    let url = this._endPoint.getRestService('device/delete/' + deviceId);
     return this._http
-      .delete<any>(url, {
+      .delete<any>(`${base_url}/device/delete/${deviceId}`, {
         observe: 'response',
         headers: this.getHeaders(),
       })

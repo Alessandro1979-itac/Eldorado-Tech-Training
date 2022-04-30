@@ -16,16 +16,38 @@
         </a>
       </mat-nav-list>
     </mat-sidenav>
+
     <mat-sidenav-content>
       <mat-toolbar color="primary">
-        <div fxHide.gt-xs>
-          <button mat-icon-button (click)="sidenav.toggle()">
-            <mat-icon>menu</mat-icon>
+        <mat-menu
+          #appMenu="matMenu"
+          [overlapTrigger]="false"
+          xPosition="after"
+          yPosition="above"
+        >
+          <button mat-menu-item [matMenuTriggerFor]="subMenu">Home</button>
+          <button mat-menu-item>Sair</button>
+        </mat-menu>
+
+        <mat-menu #subMenu="matMenu">
+          <button mat-menu-item>
+            <a mat-list-item routerLink="/devices">
+              <mat-icon class="icon">devices</mat-icon>
+              <span class="labels">Device</span>
+            </a>
           </button>
-        </div>
-        <div>
-          <a routerLink="/"> Project Eldorado </a>
-        </div>
+          <button mat-menu-item>
+            <a mat-list-item routerLink="/categories">
+              <mat-icon class="icon">style</mat-icon>
+              <span class="labels">Category</span>
+            </a>
+          </button>
+        </mat-menu>
+
+        <button class="center" mat-flat-button [matMenuTriggerFor]="appMenu">
+          <mat-icon>menu</mat-icon>
+        </button>
+
         <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
           <ul fxLayout fxLayoutGap="20px" class="navigation-items">
             <li>
@@ -49,6 +71,7 @@
           </ul>
         </div>
       </mat-toolbar>
+
       <main>
         <router-outlet></router-outlet>
       </main>

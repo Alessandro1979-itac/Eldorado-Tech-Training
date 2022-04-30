@@ -76,3 +76,11 @@ footer {
   text-align: center;
   vertical-align: middle;
 }
+
+.center {
+  margin: 10px;
+}
+
+.labels {
+  color: black;
+}

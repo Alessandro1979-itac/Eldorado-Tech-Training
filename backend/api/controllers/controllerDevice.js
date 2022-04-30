@@ -4,7 +4,7 @@ const config = require('../../config/mysql');
 const database = knex(config);
 database.migrate.latest([config]);
 
-const getDevices = (_req, res, next) => {
+const getDevices = (req, res, next) => {
   database
     .select(
       'Device.Id AS id',

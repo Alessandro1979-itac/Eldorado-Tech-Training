@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AccountService } from '../shared/account.service';
+import { AlertService } from '../shared/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,11 @@ export class LoginComponent implements OnInit {
     password: '',
   };
 
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -24,7 +29,9 @@ export class LoginComponent implements OnInit {
       console.log(`Login efetuado: ${result}`);
       this.router.navigate(['']);
     } catch (error) {
-      console.error(error);
+      console.error(
+        this.alertService.error('', 'Usuário ou senha incorreto(s)!', 'Ok')
+      );
     }
   }
 }

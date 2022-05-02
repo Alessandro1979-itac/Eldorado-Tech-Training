@@ -23,7 +23,7 @@ const createUser = async (req, res) => {
     const response = {
       mensagem: 'User created successfully',
       usuarioCriado: {
-        userId: results.insertId,
+        userId: results.userId,
         email: req.body.email,
       },
     };

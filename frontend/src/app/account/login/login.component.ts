@@ -26,11 +26,18 @@ export class LoginComponent implements OnInit {
   async onSubmit() {
     try {
       const result = await this.accountService.login(this.login);
-      console.log(`Login efetuado: ${result}`);
+      console.log(
+        result,
+        this.alertService.success(
+          '',
+          `User: ${this.login.email} successfully logged in!`,
+          'Ok'
+        )
+      );
       this.router.navigate(['']);
     } catch (error) {
       console.error(
-        this.alertService.error('', 'Usuário ou senha incorreto(s)!', 'Ok')
+        this.alertService.error('', 'Incorrect username or password!', 'Ok')
       );
     }
   }

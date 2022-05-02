@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AccountService } from '../shared/account.service';
+import { AlertService } from '../shared/alert.service';
 
 @Component({
   selector: 'app-create-account',
@@ -13,16 +15,33 @@ export class CreateAccountComponent implements OnInit {
     password: '',
   };
 
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private alertService: AlertService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
   async onSubmit() {
     try {
       const result = await this.accountService.createAccount(this.account);
-      console.log(result);
+      console.log(
+        this.alertService.success(
+          '',
+          `User: ${this.account.email} created successfully!`,
+          'Ok'
+        )
+      );
+      this.router.navigate(['']);
     } catch (error) {
-      console.error(error);
+      console.error(
+        this.alertService.error(
+          '',
+          `Email: ${this.account.email} already exists, try another email!`,
+          'Ok'
+        )
+      );
     }
   }
 }
